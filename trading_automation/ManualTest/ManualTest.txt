@@ -1,0 +1,10 @@
+[Spots] $FILUSDT | New signal available (Type: Scalp - Risk: Low)
+[Spots] $HNTUSDT | New signal available (Type: Scalp - Risk: High)
+[Spots] $HNTUSDT | ✅ Target 1 done with 6.14% profit.
+[Spots] $HNTUSDT | ✅ Target 2 done with 10.14% profit.
+[Spots] $HNTUSDT | ✅ Target 3 done with 25.14% profit.
+[Spots] $FILUSDT | ✅ Target 1 done with 6.14% profit.
+[Spots] $FILUSDT | ✅ Target 2 done with 10.14% profit.
+[Spot] $FILUSDT | Signal closed with 21.50% profit(peak)
+[Spot] $CHZUSDT | Signal closed with 21.50% profit(peak)
+[Spot] $HNTUSDT | Signal closed with 21.50% profit(peak)
