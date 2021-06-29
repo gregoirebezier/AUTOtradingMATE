@@ -89,19 +89,29 @@ def statistics(order, paire, price):
         return (0)
 
 def erase_ligne(index):
-    temp = 0
+    temp = -1
     try:
         with open("files/trade.txt", "r") as f:
             lines = f.readlines()
         with open("files/trade.txt", "w") as f:
             for line in lines:
+                temp += 1
                 if (temp == index):
+                    #print(line)
                     #print("line deleted")
                     continue
                 else:
                     f.write(line)
-                temp += 1
         f.close()
+    except:
+        return (0)
+
+def vente2_test(pair, client):
+    try:
+        #print(pair)
+        price = client.get_asset_balance(asset=pair)
+        price_to_sell = float(price["free"])
+        return (price_to_sell)
     except:
         return (0)
 
@@ -111,26 +121,22 @@ def vente_crypto(pair, client):
     if ("_1" in pair):
         pair = pair.replace("_1", "")
         paire = pair + "USDT"
-        price = client.get_asset_balance(asset=pair)
-        price_to_sell = float(price["free"])
+        price_to_sell = vente2_test(pair, client)
         money_to_sell = price_to_sell * 0.6
     elif ("_2" in pair):
         pair = pair.replace("_2", "")
         paire = pair + "USDT"
-        price = client.get_asset_balance(asset=pair)
-        price_to_sell = float(price["free"])
+        price_to_sell = vente2_test(pair, client)
         temp = (0.67 * price_to_sell)
         money_to_sell = (temp + price_to_sell) * 0.2
     elif ("_3" in pair):
         pair = pair.replace("_3", "")
         paire = pair + "USDT"
-        price = client.get_asset_balance(asset=pair)
-        price_to_sell = float(price["free"])
+        price_to_sell = vente2_test(pair, client)
         money_to_sell = price_to_sell
     else:
-        price = client.get_asset_balance(asset=pair)
         paire = pair + "USDT"
-        price_to_sell = float(price["free"])
+        price_to_sell = vente2_test(pair, client)
         money_to_sell = price_to_sell
         #print(client.get_asset_balance(asset=pair))
     i = 10
@@ -148,16 +154,19 @@ def vente_crypto(pair, client):
 
 #this function manage when a crypto money must me buy
 def achat_crypto(pair, client, money_trade):
-    if ("L" in pair):
-        pair = pair.replace("L", "")
+    if ("_L" in pair):
+        pair = pair.replace("_L", "")
         money_trade = float(money_trade) * 2
-    pair = pair.replace("\n", "")
-    paire = pair + "USDT"
+    if (" 1" in pair):
+        pair = pair.replace(" 1", "")
+    if ("1" in pair):
+        pair = pair.replace("1", "")
+    paire = pair.replace("\n", "")
     try:
         pair_price = client.get_symbol_ticker(symbol=paire)
         real_price = float(money_trade) / 20 / float(pair_price["price"])
     except:
-        return (0)
+        return (1)
     #print(client.get_symbol_ticker(symbol=paire))
     i = 10
     while (i != 0):
@@ -170,7 +179,7 @@ def achat_crypto(pair, client, money_trade):
         except:
             continue
     #print("buy failed")
-    return (0)
+    return (1)
 
 #this function manage the message parsed buy the parser.sh and check if there is crypto money to buy
 def check_message():
@@ -209,7 +218,10 @@ def check_sell(client):
                 continue
         result.close()
     except:
-        return (None)
+        if (temp2 >= 1):
+            return (1)
+        else:
+            return (None)
     if (temp2 >= 1):
         return (1)
     else:
@@ -245,6 +257,8 @@ def my_sql_serv(var):
     api_secret1 = mycursor.fetchall()
     mycursor.execute("SELECT email FROM clients")
     EmailSendingTo1 = mycursor.fetchall()
+    mycursor.execute("SELECT MoneyToTrade FROM clients")
+    MoneyToTrade1 = mycursor.fetchall()
 
     for element in EmailSendingTo1:
         var.EmailSendingTo.append(element[0])
@@ -252,7 +266,8 @@ def my_sql_serv(var):
         var.api_key.append(element[0])
     for element in api_secret1:
         var.api_secret.append(element[0])
-
+    for element in MoneyToTrade1:
+        var.money_buy.append(element[0])
 #put all var to 0 every weeks
 def init_var(var):
     var.EmailSendingTo = []
@@ -272,13 +287,6 @@ def main():
         if time.time() - x >= delay: # if the amount of time since enter was pressed is the delay
             init_var(var)
             my_sql_serv(var)
-            for i, person in enumerate(var.api_key):
-                client = Client(person, var.api_secret[i])
-                var.money_trade.append(client.get_asset_balance(asset="USDT"))
-                if (var.money_trade[i] is not None):
-                    var.money_buy.append(var.money_trade[i]["free"])
-                else:
-                    var.money_buy.append("0")
             delay = 604800
         #this is the game loop for buy and sell crypto
         while (True):
@@ -288,8 +296,8 @@ def main():
                     var.erase_sell = 1
                 pair = check_message()
                 if (pair is not None and "0" not in pair):
-                    achat_crypto(pair, client, var.money_buy[i])
-                    var.erase_buy = 1
+                    if (achat_crypto(pair, client, var.money_buy[i]) == 0):
+                        var.erase_buy = 1
             if (var.erase_buy == 1):
                 erase_ligne(0)
                 var.erase_buy = 0
