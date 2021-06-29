@@ -35,8 +35,12 @@ while [ true ] ; do
 
 				if [ "$order" = "1" ] ; then
 					if echo -e "$message_line" | grep -i "Low" 1> /dev/null ; then
-						risk="L" && echo z
+						risk="_L" && echo z
+					else
+						unset risk && echo zz
 					fi
+				else
+					unset risk && echo zz
 				fi
 
 				if [ ! -z "$id" -a ! -z "$order" ] ; then
