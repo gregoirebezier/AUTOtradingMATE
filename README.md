@@ -76,13 +76,14 @@ $cd trading_automate_binance/trading_automation/
 $pip3 install -r files/requirements.txt
 ```
 Open `DataSql/my_sql_db.py` <br />
--Create Database and Table then insert a line to Table. <br />
+-Create Database `crypto_client` and table `clients` (commands are in the file)<br />
 -Complete differents required variables : <br />
 &nbsp;&nbsp;&nbsp;&nbsp;-name <br />
 &nbsp;&nbsp;&nbsp;&nbsp;-api_key <br />
 &nbsp;&nbsp;&nbsp;&nbsp;-api_secret <br />
 &nbsp;&nbsp;&nbsp;&nbsp;-email <br />
--Run this Script 1 time to create Database, Table, lines of the table. <br />
+&nbsp;&nbsp;&nbsp;&nbsp;-MoneyToTrade <br />
+-Run this Script 1 time to create table, insert lines of the table. <br />
 <br />
 Open `binance_apiv2.py` and complete differents required variables : <br />
 &nbsp;&nbsp;&nbsp;&nbsp;-EMAIL_ADDRESS <br />
