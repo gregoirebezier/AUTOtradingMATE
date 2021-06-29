@@ -6,7 +6,7 @@ else
 	echo -e "parser ERROR"
 fi
 
-if ps -ef | grep -e "SCREEN python3 binance_api.py" 1> /dev/null ; then
+if ps -ef | grep -e "SCREEN python3 AUTOtradingMATE.py" 1> /dev/null ; then
         echo -e "binance_api OK"
 else
         echo -e "binance_api ERROR"

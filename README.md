@@ -85,7 +85,7 @@ Open `DataSql/my_sql_db.py` <br />
 &nbsp;&nbsp;&nbsp;&nbsp;-MoneyToTrade <br />
 -Run this Script 1 time to create table, insert lines of the table. <br />
 <br />
-Open `binance_apiv2.py` and complete differents required variables : <br />
+Open `AUTOtradingMATE.py` and complete differents required variables : <br />
 &nbsp;&nbsp;&nbsp;&nbsp;-EMAIL_ADDRESS <br />
 &nbsp;&nbsp;&nbsp;&nbsp;-EMAIL_PASSWORD <br />
 &nbsp;&nbsp;&nbsp;&nbsp;-mydb <br />
@@ -99,7 +99,7 @@ Open `PythonScript/report_check.py` and complete differents required variables :
 After this just run `an2linuxserver.py` and follow the instructions. <br />
 After everything configured correctly run in background this differents scripts :
 ```
-$screen python binance_apiv2.py (then : CTRL A, CTRL D)
+$screen python AUTOtradingMATE.py (then : CTRL A, CTRL D)
 $python an2linuxserver.py &
 $screen python PythonScript/report_check.py (then : CTRL A, CTRL D)
 $./parser.sh &
