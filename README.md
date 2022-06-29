@@ -8,7 +8,6 @@
 # &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;AUTOtradingMATE
 
 ### Author : Grégoire Bézier
-### Contributor : Quentin Récolé
 ### Credit for an2linuxserver : github.com/rootkiwi
 
 ## Table of contents
